@@ -43,6 +43,11 @@
           </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
+          <a href="{{url_for('livestream')}}" class="nav-link" >
+          <span class="badge badge-warning " style="background-color:rgb(144,210,250); font-size: medium;">Live</span>
+          </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
           <!-- <a href="#" class="nav-link">Contact</a> -->
         </li>
       </ul>
@@ -293,7 +298,7 @@
       <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <!-- interactive chart -->
               <div class="card card-primary card-outline">
                 <div class="card-header">
@@ -319,6 +324,13 @@
               <!-- /.card -->
 
             </div>
+            
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
+          <div class="row">
+
             <div class="col-md-6">
               <div class="card card-primary card-outline">
                 <div class="card-header">
@@ -342,12 +354,6 @@
                 <!-- /.card-body-->
               </div>
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-
-          <div class="row">
-
             <!-- /.col -->
 
             <div class="col-md-6">
@@ -377,9 +383,9 @@
               </div>
               <!-- /.card -->
             </div>
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <img src="{{ url_for('video_feed') }}" ,style="width: 100%;height: 390px;" >
-            </div>
+            </div> -->
             <!-- /.col -->
           </div>
           <!-- /.row -->

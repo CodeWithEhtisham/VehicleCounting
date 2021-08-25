@@ -14,29 +14,32 @@ app = Flask(__name__)
 flags=False
 
 
-def gen():
+def gen(status=False):
         stream = Streaming_Video('192.168.18.34', 5555)
-        stream.start()
-        while True:
-            if stream.streaming:
-            # frame=pickle.loads(stream.get_jpeg(), fix_imports=True, encoding="bytes")
-            # print(frame)
-            # frame = frame.decode()
-            # print('frame',frame[0:100])
-            # img_conv = base64.b64decode(frame)
-            # as_np = np.frombuffer(img_conv, dtype=np.uint8)
-            # org_im = cv2.imdecode(as_np,flags=1)
-            # yield(org_im)
-            # print("frame",stream.get_jpeg())
-            # print("sleep")
-                f = open('2.jpg', 'wb')
-                f.write(stream.get_jpeg())
-                f.close()
-                # print(type(stream.get_jpeg()))
-                # image=Image.open(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + stream.get_jpeg() + b'\r\n\r\n')
-                # image.save(r"img")
-                # time.sleep(4)
-                yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + stream.get_jpeg() + b'\r\n\r\n')
+        if status:
+            stream.start()
+            while True:
+                if stream.streaming:
+                # frame=pickle.loads(stream.get_jpeg(), fix_imports=True, encoding="bytes")
+                # print(frame)
+                # frame = frame.decode()
+                # print('frame',frame[0:100])
+                # img_conv = base64.b64decode(frame)
+                # as_np = np.frombuffer(img_conv, dtype=np.uint8)
+                # org_im = cv2.imdecode(as_np,flags=1)
+                # yield(org_im)
+                # print("frame",stream.get_jpeg())
+                # print("sleep")
+                    f = open('2.jpg', 'wb')
+                    f.write(stream.get_jpeg())
+                    f.close()
+                    # print(type(stream.get_jpeg()))
+                    # image=Image.open(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + stream.get_jpeg() + b'\r\n\r\n')
+                    # image.save(r"img")
+                    # time.sleep(4)
+                    yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + stream.get_jpeg() + b'\r\n\r\n')
+        else:
+            stream.stop()
 
 
 
@@ -189,8 +192,12 @@ def video_feed():
   print("hello")
   print("frame ",gen())
   # print(Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame'))
-  return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
+  return Response(gen(True), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/livestream',methods=['GET','POST'])
+def livestream():
+    
+    return render_template("livestream.html")
+    
 @app.route("/history",methods=["GET","POST"])
 def history():
     print("history loading")
@@ -223,6 +230,7 @@ def get_table_data():
     df=fetchDataframe(1)
     print(df)
     return df
+
 @app.route('/fetchdata', methods=["POST"])
 def get_json():
     global flags
